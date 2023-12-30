@@ -1,0 +1,8 @@
+#pragma once
+
+#define ENABLE_COMPILE_KEYCODE
+
+#define TAPPING_TERM 300
+#define HOLD_ON_OTHER_KEY_PRESS
+
+#define SECURE_IDLE_TIMEOUT 0
