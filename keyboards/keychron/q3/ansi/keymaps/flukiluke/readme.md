@@ -56,6 +56,8 @@ F    | _
 G    | )
 E    | {
 R    | }
+J    | Down
+K    | Up
 
 ## Lighting
 Non-base layers light up keys valid for that layer.

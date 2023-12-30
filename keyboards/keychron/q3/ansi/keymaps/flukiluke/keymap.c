@@ -33,10 +33,6 @@ enum layers{
     LNP,
 };
 
-enum custom_keycodes {
-    KC_USR1 = QK_USER
-};
-
 #define MT_CTES LCTL_T(KC_ESC)
 #define LM_RSFT LM(LRS, MOD_RSFT)
 
@@ -52,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  KC_LBRC,  KC_RBRC,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        _______,  KC_1,     KC_USR1,  KC_9,     KC_MINS,  KC_0,     _______,  KC_DOWN,  _______,  _______,  _______,  _______,            _______,
+        _______,  KC_1,     KC_EQL,   KC_9,     KC_MINS,  KC_0,     _______,  KC_DOWN,  KC_UP,    _______,  _______,  _______,            _______,
         _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,            _______,
         _______,  _______,  _______,                                _______,                                _______,  _______,  _______,  _______,  _______,  _______,  _______),
     [LFN] = LAYOUT_tkl_ansi(
@@ -81,15 +77,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (secure_is_locked() && !(keycode == SE_TOGG || keycode == MO(LFN))) {
         return false;
     }
-    if (keycode == KC_USR1) {
+    if (IS_LAYER_ON(LRS) && (keycode == KC_EQL || keycode == KC_DOWN || keycode == KC_UP)) {
         uint8_t mod_state = get_mods();
 
         del_mods(MOD_MASK_SHIFT);
         if (record->event.pressed) {
-            register_code(KC_EQL);
+            register_code(keycode);
         }
         else {
-            unregister_code(KC_EQL);
+            unregister_code(keycode);
         }
         set_mods(mod_state);
         return false;
@@ -145,6 +141,8 @@ bool rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(0x35, RGB_BLUE); // D
             rgb_matrix_set_color(0x36, RGB_BLUE); // F
             rgb_matrix_set_color(0x37, RGB_BLUE); // G
+            rgb_matrix_set_color(0x39, RGB_BLUE); // J
+            rgb_matrix_set_color(0x3a, RGB_BLUE); // K
             break;
         default:
             if (host_keyboard_led_state().caps_lock) {
