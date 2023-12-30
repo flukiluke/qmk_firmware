@@ -45,6 +45,18 @@ S    | /
 Enter| Enter
 N    | Num lock
 
+## Right shift layer
+
+Key  | Action
+---- | ------
+A    | !
+S    | =
+D    | (
+F    | _
+G    | )
+E    | {
+R    | }
+
 ## Lighting
 Non-base layers light up keys valid for that layer.
 
