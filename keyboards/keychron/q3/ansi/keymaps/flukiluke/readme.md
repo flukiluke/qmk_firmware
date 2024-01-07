@@ -15,7 +15,7 @@ F10  | Media mute
 F11  | Media volume down
 F12  | Media volume up
 Caps | Caps lock
-S    | Toggle lock/unlock
+S    | Secure lock toggle
 N    | Numpad Oneshot
 PrScr|
 ScrLk|
@@ -45,19 +45,16 @@ S    | /
 Enter| Enter
 N    | Num lock
 
-## Right shift layer
+## Tab layer
 
 Key  | Action
 ---- | ------
-A    | !
-S    | =
-D    | (
-F    | _
-G    | )
-E    | {
-R    | }
+U    | Backspace
+H    | Left
 J    | Down
 K    | Up
+L    | Right
+;    | Enter
 
 ## Lighting
 Non-base layers light up keys valid for that layer.

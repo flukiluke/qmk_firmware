@@ -22,33 +22,33 @@
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
-        _______,            _______,  _______,  _______,  _______,  _______,  _______, _______,  _______,  _______,  _______,            _______,            _______,
+        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,            _______,
         _______,  _______,  _______,                                _______,                                _______,  _______,  _______,  _______,  _______,  _______,  _______),
 */
 
 enum layers{
     LBSE,
-    LRS,
+    LTB,
     LFN,
     LNP,
 };
 
 #define MT_CTES LCTL_T(KC_ESC)
-#define LM_RSFT LM(LRS, MOD_RSFT)
+#define LT_TAB  LT(LTB, KC_TAB)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LBSE] = LAYOUT_tkl_ansi(
         KC_ESC,             KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_PSCR,  KC_SCRL,  KC_PAUS,
         KC_GRV,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,  KC_INS,   KC_HOME,  KC_PGUP,
-        KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,  KC_DEL,   KC_END,   KC_PGDN,
+        LT_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,  KC_DEL,   KC_END,   KC_PGDN,
         MT_CTES,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,            KC_ENT,
-        KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,            LM_RSFT,            KC_UP,
+        KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,            KC_RSFT,            KC_UP,
         KC_LCTL,  KC_LWIN,  KC_LALT,                                KC_SPC,                                 KC_RALT,  MO(LFN),  KC_RWIN,  KC_RCTL,  KC_LEFT,  KC_DOWN,  KC_RGHT),
-    [LRS] = LAYOUT_tkl_ansi(
+    [LTB] = LAYOUT_tkl_ansi(
         _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,  KC_LBRC,  KC_RBRC,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        _______,  KC_1,     KC_EQL,   KC_9,     KC_MINS,  KC_0,     _______,  KC_DOWN,  KC_UP,    _______,  _______,  _______,            _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_BSPC,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  KC_ENT,   _______,            _______,
         _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,            _______,
         _______,  _______,  _______,                                _______,                                _______,  _______,  _______,  _______,  _______,  _______,  _______),
     [LFN] = LAYOUT_tkl_ansi(
@@ -75,19 +75,6 @@ void keyboard_post_init_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (secure_is_locked() && !(keycode == SE_TOGG || keycode == MO(LFN))) {
-        return false;
-    }
-    if (IS_LAYER_ON(LRS) && (keycode == KC_EQL || keycode == KC_DOWN || keycode == KC_UP)) {
-        uint8_t mod_state = get_mods();
-
-        del_mods(MOD_MASK_SHIFT);
-        if (record->event.pressed) {
-            register_code(keycode);
-        }
-        else {
-            unregister_code(keycode);
-        }
-        set_mods(mod_state);
         return false;
     }
     return true;
@@ -133,16 +120,13 @@ bool rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(0x34, RGB_BLUE); // S
             rgb_matrix_set_color(0x45, RGB_BLUE); // N
             break;
-        case LRS:
-            rgb_matrix_set_color(0x24, RGB_BLUE); // E
-            rgb_matrix_set_color(0x25, RGB_BLUE); // R
-            rgb_matrix_set_color(0x33, RGB_BLUE); // A
-            rgb_matrix_set_color(0x34, RGB_BLUE); // S
-            rgb_matrix_set_color(0x35, RGB_BLUE); // D
-            rgb_matrix_set_color(0x36, RGB_BLUE); // F
-            rgb_matrix_set_color(0x37, RGB_BLUE); // G
+        case LTB:
+            rgb_matrix_set_color(0x28, RGB_BLUE); // U
+            rgb_matrix_set_color(0x38, RGB_BLUE); // H
             rgb_matrix_set_color(0x39, RGB_BLUE); // J
             rgb_matrix_set_color(0x3a, RGB_BLUE); // K
+            rgb_matrix_set_color(0x3b, RGB_BLUE); // L
+            rgb_matrix_set_color(0x3c, RGB_BLUE); // ;
             break;
         default:
             if (host_keyboard_led_state().caps_lock) {
@@ -150,5 +134,5 @@ bool rgb_matrix_indicators_user(void) {
             }
             break;
     }
-    return false; // Suppress q3 caps lock behaviour
+    return true; // Suppress q3 caps lock behaviour
 }
