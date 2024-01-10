@@ -31,6 +31,7 @@ enum layers{
     LTB,
     LFN,
     LNP,
+    LMS,
 };
 
 #define MT_CTES LCTL_T(KC_ESC)
@@ -52,11 +53,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,            _______,
         _______,  _______,  _______,                                _______,                                _______,  _______,  _______,  _______,  _______,  _______,  _______),
     [LFN] = LAYOUT_tkl_ansi(
-        XXXXXXX,            KC_BRID,  KC_BRIU,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,  KC_VOLU,  XXXXXXX,  XXXXXXX,  QK_MAKE,
+        KC_SLEP,            KC_BRID,  KC_BRIU,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,  KC_VOLU,  XXXXXXX,  XXXXXXX,  QK_MAKE,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
         KC_CAPS,  XXXXXXX,  SE_TOGG,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            XXXXXXX,
-        XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  OSL(LNP), XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            XXXXXXX,            XXXXXXX,
+        XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  OSL(LNP), TG(LMS),  XXXXXXX,  XXXXXXX,  XXXXXXX,            XXXXXXX,            XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX),
     [LNP] = LAYOUT_tkl_ansi(
         XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
@@ -65,6 +66,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,  KC_PAST,  KC_PSLS,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            KC_PENT,
         XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_NUM,   KC_PMNS,  XXXXXXX,  KC_PDOT,  XXXXXXX,            XXXXXXX,            XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,                                XXXXXXX,                                XXXXXXX,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX),
+    [LMS] = LAYOUT_tkl_ansi(
+        TG(LMS),            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_WH_U,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_WH_D,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,
+        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,            KC_MS_U,
+        KC_BTN1,  KC_BTN3,  KC_BTN2,                                _______,                                _______,  _______,  _______,  _______,  KC_MS_L,  KC_MS_D,  KC_MS_R),
 };
 
 void keyboard_post_init_user(void) {
@@ -107,6 +115,7 @@ bool rgb_matrix_indicators_user(void) {
             }
             break;
         case LFN:
+            rgb_matrix_set_color(0x00, RGB_BLUE); // Esc
             rgb_matrix_set_color(0x01, RGB_BLUE); // F1
             rgb_matrix_set_color(0x02, RGB_BLUE); // F2
             rgb_matrix_set_color(0x07, RGB_BLUE); // F7
@@ -119,6 +128,7 @@ bool rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(0x32, RGB_BLUE); // Caps
             rgb_matrix_set_color(0x34, RGB_BLUE); // S
             rgb_matrix_set_color(0x45, RGB_BLUE); // N
+            rgb_matrix_set_color(0x46, RGB_BLUE); // M
             break;
         case LTB:
             rgb_matrix_set_color(0x28, RGB_BLUE); // U
@@ -127,6 +137,18 @@ bool rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(0x3a, RGB_BLUE); // K
             rgb_matrix_set_color(0x3b, RGB_BLUE); // L
             rgb_matrix_set_color(0x3c, RGB_BLUE); // ;
+            break;
+        case LMS:
+            rgb_matrix_set_color(0x00, RGB_BLUE); // Esc
+            rgb_matrix_set_color(0x20, RGB_BLUE); // PgUp
+            rgb_matrix_set_color(0x31, RGB_BLUE); // PgDown
+            rgb_matrix_set_color(0x4c, RGB_BLUE); // Ctrl
+            rgb_matrix_set_color(0x4d, RGB_BLUE); // Super
+            rgb_matrix_set_color(0x4e, RGB_BLUE); // Alt
+            rgb_matrix_set_color(0x4b, RGB_BLUE); // Up
+            rgb_matrix_set_color(0x54, RGB_BLUE); // Left
+            rgb_matrix_set_color(0x55, RGB_BLUE); // Down
+            rgb_matrix_set_color(0x56, RGB_BLUE); // Right
             break;
         default:
             if (host_keyboard_led_state().caps_lock) {
