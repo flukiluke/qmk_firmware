@@ -14,9 +14,15 @@ F9   | Media next
 F10  | Media mute
 F11  | Media volume down
 F12  | Media volume up
+1    | Play macro 1
+2    | Play macro 2
+8    | Record macro 1
+9    | Record macro 2
+0    | Stop recording macro
 Caps | Caps lock
 S    | Secure lock toggle
 N    | Numpad Oneshot
+M    | Mouse keys toggle
 PrScr|
 ScrLk|
 Break| Issue qmk compile
@@ -55,6 +61,21 @@ J    | Down
 K    | Up
 L    | Right
 ;    | Enter
+
+## Mouse keys layer
+
+Key   | Action
+----  | ------
+LCtrl | Left click
+LSuper| Middle click
+LAlt  | Right click
+Up    | Mouse up
+Down  | Mouse down
+Left  | Mouse left
+Right | Mouse right
+PgUp  | Scroll up
+PgDn  | Scroll down
+Esc   | Exit mouse keys layer
 
 ## Lighting
 Non-base layers light up keys valid for that layer.

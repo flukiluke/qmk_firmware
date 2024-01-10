@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,                                _______,                                _______,  _______,  _______,  _______,  _______,  _______,  _______),
     [LFN] = LAYOUT_tkl_ansi(
         KC_SLEP,            KC_BRID,  KC_BRIU,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,  KC_VOLU,  XXXXXXX,  XXXXXXX,  QK_MAKE,
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+        XXXXXXX,  DM_PLY1,  DM_PLY2,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  DM_REC1,  DM_REC2,  DM_RSTP,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
         KC_CAPS,  XXXXXXX,  SE_TOGG,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            XXXXXXX,
         XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  OSL(LNP), TG(LMS),  XXXXXXX,  XXXXXXX,  XXXXXXX,            XXXXXXX,            XXXXXXX,
@@ -125,6 +125,15 @@ bool rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(0x0b, RGB_BLUE); // F11
             rgb_matrix_set_color(0x0c, RGB_BLUE); // F12
             rgb_matrix_set_color(0x0f, RGB_BLUE); // Break
+            if (dynamic_macro_is_1_set()) {
+                rgb_matrix_set_color(0x11, RGB_BLUE); // 1
+            }
+            if (dynamic_macro_is_2_set()) {
+                rgb_matrix_set_color(0x12, RGB_BLUE); // 2
+            }
+            rgb_matrix_set_color(0x18, RGB_BLUE); // 8
+            rgb_matrix_set_color(0x19, RGB_BLUE); // 9
+            rgb_matrix_set_color(0x1a, RGB_BLUE); // 0
             rgb_matrix_set_color(0x32, RGB_BLUE); // Caps
             rgb_matrix_set_color(0x34, RGB_BLUE); // S
             rgb_matrix_set_color(0x45, RGB_BLUE); // N

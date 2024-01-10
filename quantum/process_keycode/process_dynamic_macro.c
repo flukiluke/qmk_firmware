@@ -290,3 +290,11 @@ bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
 
     return true;
 }
+
+bool dynamic_macro_is_1_set(void) {
+    return macro_buffer != macro_end;
+}
+
+bool dynamic_macro_is_2_set(void) {
+    return r_macro_buffer != r_macro_end;
+}
